@@ -107,8 +107,10 @@ namespace contacts.econtactClasses
             {
                 // Step2: Create a SQL query to update data in DB
                 string sql = "UPDATE table_econtact SET FirstName=@FirstName, LastName=@LastName, ContactNo=@ContactNo, Address=@Address, Gender=@Gender WHERE ContactID=@ContactID";
+                
                 // creating the command using sql and conn
                 SqlCommand cmd = new SqlCommand(sql, conn);
+                
                 //create parameters to add data
                 cmd.Parameters.AddWithValue("@FirstName", c.FirstName);
                 cmd.Parameters.AddWithValue("@LastName", c.LastName);
@@ -119,7 +121,9 @@ namespace contacts.econtactClasses
 
                 //Connection open here
                 conn.Open();
+
                 int rows = cmd.ExecuteNonQuery();
+
                 // if query was succesfull then the number of rows will be greater than 0
                 if (rows > 0)
                     isSuccess = true;
