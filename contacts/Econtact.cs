@@ -1,15 +1,17 @@
-﻿using contacts.econtactClasses;
+﻿using EContact.econtactClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace contacts
+namespace EContact
 {
     public partial class Econtact : Form
     {
@@ -75,7 +77,7 @@ namespace contacts
             // convert string to int
             c.ContactID = int.Parse(textBoxContactId.Text);
             c.FirstName = textBoxFirstName.Text;
-            c.LastName = textBoxFirstName.Text;
+            c.LastName = textBoxLastName.Text;
             c.ContactNo = textBoxContactNumber.Text;
             c.Address = textBoxAddress.Text;
             c.Gender = comboBoxGender.Text;
@@ -136,6 +138,20 @@ namespace contacts
             {
                 MessageBox.Show("Failed to delete contact. Try Again");
             }
+        }
+
+        static string myconnstr = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            // get the data from the text box
+            string keyword = textBoxSearch.Text;
+
+            SqlConnection conn = new SqlConnection(myconnstr);
+            SqlDataAdapter sda = new SqlDataAdapter("SELECT * FROM table_econtact WHERE FirstName LIKE '%"+keyword+ "%' OR LastName LIKE '%"+keyword+"%' OR  Address LIKE '%"+keyword+"%'", conn);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dataGridViewContactList.DataSource = dt;
         }
     }
 }

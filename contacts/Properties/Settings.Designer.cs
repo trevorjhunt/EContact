@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace contacts.Properties
+namespace EContact.Properties
 {
 
 

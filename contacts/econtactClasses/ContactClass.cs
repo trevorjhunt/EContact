@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace contacts.econtactClasses
+namespace EContact.econtactClasses
 {
     class ContactClass
     {
@@ -20,7 +20,7 @@ namespace contacts.econtactClasses
         public string Address { get; set; }
         public string Gender { get; set; }
 
-        static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+        readonly static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         //selecting data from database
         public DataTable Select()
